@@ -2,6 +2,7 @@
 
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 
@@ -10,7 +11,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
@@ -18,6 +19,11 @@ UTankAimingComponent::UTankAimingComponent()
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
+{
+	Turret = TurretToSet;
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
@@ -30,22 +36,19 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	if (UGameplayStatics::SuggestProjectileVelocity(this, LaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace))
 	{
 		FVector AimDirection = LaunchVelocity.GetSafeNormal();
+
 		MoveBarrelTowards(AimDirection);
-		
-		//UE_LOG(LogTemp, Warning, TEXT("%s is aiming at %s"), *(GetOwner()->GetName()), *(AimDirection.ToString()));
 	}
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-	// Get current barrel rotation
+	// Get current barrel rotation, applies to the turret too since they don't yaw relative to one another
 	FRotator BarrelRotation = Barrel->GetForwardVector().Rotation();
 	FRotator AimAsRotator = AimDirection.Rotation();
 
 	FRotator DeltaRotator = AimAsRotator - BarrelRotation;
 
-	Barrel->ElevateBarrel(5);
-
-	//UE_LOG(LogTemp, Warning, TEXT("%s DeltaRotator: %s"), *(GetOwner()->GetName()), *(AimAsRotator.ToString()));
-
+	Barrel->ElevateBarrel(DeltaRotator.Pitch);
+	Turret->RotateTurret(DeltaRotator.Yaw);
 }
