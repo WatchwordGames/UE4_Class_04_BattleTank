@@ -7,6 +7,7 @@
 #include "Tank.generated.h"
 
 // Forward declarations
+class AProjectile;
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent;
@@ -43,5 +44,12 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LaunchSpeed = 10000; // TODO: Find a reasonable default value
+
+	UPROPERTY(EditAnywhere, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+private:
+	// Local barrel reference for spawning projectiles
+	UTankBarrel* Barrel = nullptr;
 	
 };
