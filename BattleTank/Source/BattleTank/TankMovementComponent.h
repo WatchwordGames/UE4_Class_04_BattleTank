@@ -14,7 +14,10 @@ class BATTLETANK_API UTankMovementComponent : public UNavMovementComponent
 {
 	GENERATED_BODY()
 	
-	
+public:
+	// Sets an intended movement magnitude between -1 (full reverse) and +1 (full forward)
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void IntendMoveForwardReverse(float Throw);
 	
 	
 };

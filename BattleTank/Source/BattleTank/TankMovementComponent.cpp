@@ -3,5 +3,7 @@
 #include "TankMovementComponent.h"
 
 
-
-
+void UTankMovementComponent::IntendMoveForwardReverse(float Throw)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Intend move forward Throw: %f"), Throw);
+}
