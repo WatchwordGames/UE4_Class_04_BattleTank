@@ -6,18 +6,29 @@
 #include "GameFramework/NavMovementComponent.h"
 #include "TankMovementComponent.generated.h"
 
+// Forward declarations
+class UTankTrack;
+
 /**
- * 
+ * Responsible for driving the tank tracks
  */
-UCLASS()
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API UTankMovementComponent : public UNavMovementComponent
 {
 	GENERATED_BODY()
 	
 public:
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void Initialize(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
+
 	// Sets an intended movement magnitude between -1 (full reverse) and +1 (full forward)
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void IntendMoveForwardReverse(float Throw);
 	
-	
+private:
+	UTankTrack* LeftTrack = nullptr;
+	UTankTrack* RightTrack = nullptr;
+
+
 };
