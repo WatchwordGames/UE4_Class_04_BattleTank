@@ -25,7 +25,10 @@ public:
 	// Sets an intended movement magnitude between -1 (full reverse) and +1 (full forward)
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void IntendMoveForwardReverse(float Throw);
-	
+
+	// Sets an intended turn magnitude which drives the left and right tracks opposite to one another. +1 turns full right, -1 full left
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void IntendTurn(float Throw);
 private:
 	UTankTrack* LeftTrack = nullptr;
 	UTankTrack* RightTrack = nullptr;
