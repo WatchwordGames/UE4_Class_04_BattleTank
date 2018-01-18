@@ -29,6 +29,10 @@ public:
 	// Sets an intended turn magnitude which drives the left and right tracks opposite to one another. +1 turns full right, -1 full left
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void IntendTurn(float Throw);
+	
+	// Request a move vector along pathfinding
+	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
+
 private:
 	UTankTrack* LeftTrack = nullptr;
 	UTankTrack* RightTrack = nullptr;

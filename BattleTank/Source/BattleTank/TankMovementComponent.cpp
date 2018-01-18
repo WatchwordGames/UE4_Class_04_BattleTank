@@ -25,3 +25,15 @@ void UTankMovementComponent::IntendTurn(float Throw)
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }
+
+void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
+{
+	// Not calling Super:: since we're totally hijacking the purpose of this method
+
+	//UE_LOG(LogTemp, Warning, TEXT("Tank %s RequestDirectMove vector: %s"), *(GetOwner()->GetName()), *(MoveVelocity.GetSafeNormal().ToString()));
+
+	FVector TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	FVector AIIntendDirection = MoveVelocity.GetSafeNormal();
+
+	IntendMoveForwardReverse(FVector::DotProduct(TankForward, AIIntendDirection));
+}
