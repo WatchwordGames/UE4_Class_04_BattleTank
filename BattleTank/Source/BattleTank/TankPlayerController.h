@@ -21,8 +21,12 @@ private:
 	float CrosshairYPosition = 0.333333;
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
 
-public:
+protected: 
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	ATank* GetControlledTank() const;
+
+public:
+
 	void AimTowardsCrosshair();
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& ScreenWorldDirection) const;
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
