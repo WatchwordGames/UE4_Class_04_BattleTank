@@ -49,6 +49,8 @@ public:
 
 private:
 
+	virtual void BeginPlay() override;
+
 	// Local barrel reference for spawning projectiles
 	UTankBarrel* Barrel = nullptr;
 
