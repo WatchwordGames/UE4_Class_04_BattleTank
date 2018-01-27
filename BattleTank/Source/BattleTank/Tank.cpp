@@ -4,7 +4,6 @@
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "Engine/World.h"
-#include "TankAimingComponent.h"
 
 // Sets default values
 ATank::ATank()
@@ -14,8 +13,10 @@ ATank::ATank()
 
 void ATank::Fire()
 {
+	if (!ensure(Barrel)) return;
+
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (Barrel && isReloaded)
+	if (isReloaded)
 	{
 
 		// Spawn projectile at the projectile socket
@@ -30,11 +31,4 @@ void ATank::Fire()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-}
-
-void ATank::AimAt(FVector HitLocation)
-{
-	if (!TankAimingComponent) return;
-
-	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
