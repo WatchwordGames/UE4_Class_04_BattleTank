@@ -30,8 +30,6 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 {
 	// Not calling Super:: since we're totally hijacking the purpose of this method
 
-	//UE_LOG(LogTemp, Warning, TEXT("Tank %s RequestDirectMove vector: %s"), *(GetOwner()->GetName()), *(MoveVelocity.GetSafeNormal().ToString()));
-
 	FVector TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
 	FVector AIIntendDirection = MoveVelocity.GetSafeNormal();
 
