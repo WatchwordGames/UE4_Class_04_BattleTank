@@ -80,9 +80,17 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	FRotator AimAsRotator = AimDirection.Rotation();
 
 	FRotator DeltaRotator = AimAsRotator - BarrelRotation;
-
+	
 	Barrel->ElevateBarrel(DeltaRotator.Pitch);
-	Turret->RotateTurret(DeltaRotator.Yaw);
+
+	float AngleToRotate = 0;
+	if (DeltaRotator.Yaw < -180) AngleToRotate = DeltaRotator.Yaw + 360;
+	else if (DeltaRotator.Yaw > 180) AngleToRotate = DeltaRotator.Yaw - 360;
+	else AngleToRotate = DeltaRotator.Yaw;
+
+	UE_LOG(LogTemp, Warning, TEXT("Rotating Turret: DeltaRotator.Yaw = %f <<>> Rotation Angle = %f"), DeltaRotator.Yaw, AngleToRotate);
+
+	Turret->RotateTurret(AngleToRotate);
 }
 
 void UTankAimingComponent::Fire()
@@ -98,4 +106,9 @@ void UTankAimingComponent::Fire()
 
 		LastFireTime = FPlatformTime::Seconds();
 	}
+}
+
+EFiringState UTankAimingComponent::GetFiringState() const
+{
+	return FiringState;
 }

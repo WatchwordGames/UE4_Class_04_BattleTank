@@ -47,8 +47,7 @@ void UTankTrack::SetThrottle(float Throttle)
 
 void UTankTrack::DriveTrack()
 {
-	// TODO: Magic number 5 here fixes issues with underdriving due to OnHit not firing every frame. Ideally this would be scaled in terms of some delta seconds since last trigger relative to the frame deltaseconds?
-	FVector ForceApplied = GetForwardVector() * CurrentThrottle * TrackMaxDrivingForce * 5;
+	FVector ForceApplied = GetForwardVector() * CurrentThrottle * TrackMaxDrivingForce;
 	FVector ForceLocation = GetComponentLocation();
 
 	UPrimitiveComponent* TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
