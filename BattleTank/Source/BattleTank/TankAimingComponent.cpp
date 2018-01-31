@@ -88,8 +88,6 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	else if (DeltaRotator.Yaw > 180) AngleToRotate = DeltaRotator.Yaw - 360;
 	else AngleToRotate = DeltaRotator.Yaw;
 
-	UE_LOG(LogTemp, Warning, TEXT("Rotating Turret: DeltaRotator.Yaw = %f <<>> Rotation Angle = %f"), DeltaRotator.Yaw, AngleToRotate);
-
 	Turret->RotateTurret(AngleToRotate);
 }
 
