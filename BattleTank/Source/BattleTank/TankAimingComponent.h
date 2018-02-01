@@ -11,7 +11,8 @@ enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	OutOfAmmo
 };
 
 // Forward declarations
@@ -32,7 +33,7 @@ public:
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float LaunchSpeed = 4000; // TODO: Find a reasonable default value
+	float LaunchSpeed = 8000; // TODO: Find a reasonable default value
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTimeInSeconds = 3;
@@ -51,6 +52,9 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringState = EFiringState::Reloading;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Ammo")
+	int Ammo = 3;
 	
 private:
 	UTankBarrel* Barrel = nullptr;
