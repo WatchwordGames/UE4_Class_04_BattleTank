@@ -2,6 +2,7 @@
 
 #include "Projectile.h"
 #include "Engine/World.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "Runtime/Engine/Public/TimerManager.h"
 
 
@@ -51,6 +52,8 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 
 	SetRootComponent(ImpactBlast);
 	CollisionMesh->DestroyComponent();
+
+	UGameplayStatics::ApplyRadialDamage(this, ProjectileDamage, GetActorLocation(), ExplosionForce->Radius, UDamageType::StaticClass(), TArray<AActor*>());
 
 	FTimerHandle InOutTimer;
 	GetWorld()->GetTimerManager().SetTimer(InOutTimer, this, &AProjectile::OnTimerExpire, AProjectile::DestroyDelay);
