@@ -21,6 +21,8 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float CrosshairYPosition = 0.333333;
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
+	UFUNCTION()
+	void OnTankDeath();
 
 protected: 
 
@@ -34,4 +36,5 @@ public:
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+	virtual void SetPawn(APawn* InPawn) override;
 };
