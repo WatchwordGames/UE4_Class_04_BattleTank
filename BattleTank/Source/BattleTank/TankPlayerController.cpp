@@ -76,7 +76,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 	
 	FVector CameraViewPointLocation = PlayerCameraManager->GetCameraLocation();
 	
-	if (GetWorld()->LineTraceSingleByChannel(HitResult, CameraViewPointLocation, CameraViewPointLocation + (LookDirection * LineTraceRangeInCentimeters), ECollisionChannel::ECC_Visibility))
+	if (GetWorld()->LineTraceSingleByChannel(HitResult, CameraViewPointLocation, CameraViewPointLocation + (LookDirection * LineTraceRangeInCentimeters), ECollisionChannel::ECC_Camera))
 	{
 		HitLocation = HitResult.Location;
 		return true;
